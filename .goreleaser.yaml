@@ -1,0 +1,38 @@
+version: 2
+
+builds:
+  - env:
+      - CGO_ENABLED=0
+    goos: [linux, darwin, windows]
+    goarch: [amd64, arm64]
+    flags: [-trimpath]
+    ldflags:
+      - -s -w -X main.version={{ .Version }}
+
+archives:
+  - formats: [tar.gz]
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    format_overrides:
+      - goos: windows
+        formats: [zip]
+    files: [LICENSE, README.md]
+
+checksum:
+  name_template: checksums.txt
+
+# Container image, built without Docker from a distroless base.
+kos:
+  - repositories:
+      - ghcr.io/fffinkel/dependency-track-mcp
+    tags:
+      - "{{ .Version }}"
+      - latest
+    bare: true
+    platforms:
+      - linux/amd64
+      - linux/arm64
+    ldflags:
+      - -s -w -X main.version={{ .Version }}
+
+changelog:
+  sort: asc

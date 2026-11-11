@@ -1,0 +1,5 @@
+/dependency-track-mcp
+/dist/
+*.test
+*.out
+.env
