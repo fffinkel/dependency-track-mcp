@@ -57,7 +57,7 @@ func main() {
 func run() error {
 	flags := flag.NewFlagSet("dependency-track-mcp", flag.ContinueOnError)
 	flags.Usage = func() {
-		fmt.Fprint(flags.Output(), usage)
+		_, _ = fmt.Fprint(flags.Output(), usage)
 		flags.PrintDefaults()
 	}
 	httpAddr := flags.String("http", os.Getenv("DTRACK_MCP_HTTP_ADDR"), "serve MCP over HTTP on this address, for example 127.0.0.1:8080")
@@ -135,7 +135,7 @@ func serveHTTP(ctx context.Context, logger *slog.Logger, server *mcp.Server, add
 		&mcp.StreamableHTTPOptions{Stateless: true, JSONResponse: true},
 	))
 	mux.HandleFunc("/healthz", func(w http.ResponseWriter, _ *http.Request) {
-		fmt.Fprintln(w, "ok")
+		_, _ = fmt.Fprintln(w, "ok")
 	})
 
 	srv := &http.Server{

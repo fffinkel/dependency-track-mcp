@@ -163,7 +163,7 @@ func (c *Client) get(ctx context.Context, cred Credential, path string, query ur
 		}
 		return 0, fmt.Errorf("request to Dependency-Track failed for /api/%s: %w", path, err)
 	}
-	defer resp.Body.Close()
+	defer func() { _ = resp.Body.Close() }()
 
 	if resp.StatusCode < 200 || resp.StatusCode > 299 {
 		snippet, _ := io.ReadAll(io.LimitReader(resp.Body, 300))
