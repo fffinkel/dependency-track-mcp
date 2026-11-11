@@ -4,6 +4,8 @@ Notable changes to this project. The format follows [Keep a Changelog](https://k
 
 ## Unreleased
 
+## 0.1.0 - 2026-11-11
+
 ### Added
 
 - Seven read-only tools: `find_projects`, `get_project_summary`, `list_project_findings`, `list_project_policy_violations`, `get_vulnerability`, `list_affected_projects`, `get_portfolio_summary`.
